@@ -21,13 +21,20 @@ function App() {
   },
   [])
 
-  function handleAddProject(){
-    // projects.push(`Novo projeto ${Date.now()}`);
+  async function handleAddProject(){
+    // projects.push(`Novo projeto ${Date.now()}`); //método 1
     
     // Imutabilidade
-    setProjects([...projects, `Novo projeto ${Date.now()}`]);
+    // setProjects([...projects, `Novo projeto ${Date.now()}`]); // método 1 com Estado
+    const response = await api.post('projects', {
+      title: `Novo projeto ${Date.now()}`,
+      owner: 'Alan Shishido'
+    })
 
-    console.log(projects)
+    const project = response.data;
+
+    setProjects([...projects, project]);
+
   }
 
   return (
